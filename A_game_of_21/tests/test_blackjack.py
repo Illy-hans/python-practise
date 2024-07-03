@@ -7,11 +7,8 @@ from unittest.mock import patch
 def blackjack_game():
     return BlackjackGame()
 
-@patch.object(Draw_Cards, 'hit_me')
-def test_blackjack_game_play(mock_hit_me, blackjack_game, capsys):
-    # card values added to the last two assertions when play_game is called
-    mock_hit_me.side_effect = [("10", "hearts"), ("8", "spades")]
-    
+def test_blackjack_game_with_21(blackjack_game, capsys):
+
     # Test case where Sam wins with Blackjack
     blackjack_game.sam_hand = [("A", "hearts"), ("K", "diamonds")]
     blackjack_game.dealer_hand = [("7", "clubs"), ("10", "spades")]
@@ -23,6 +20,11 @@ def test_blackjack_game_play(mock_hit_me, blackjack_game, capsys):
     blackjack_game.dealer_hand = [("A", "clubs"), ("K", "spades")]
     blackjack_game.play_game()
     assert "Dealer wins with Blackjack!" in capsys.readouterr().out
+
+@patch.object(Draw_Cards, 'hit_me')
+def test_blackjack_game_with_busts(mock_hit_me, blackjack_game, capsys):
+    # card values added to the last two assertions when play_game is called
+    mock_hit_me.side_effect = [("10", "hearts"), ("8", "spades")]
 
     # Test case where Sam busts
     blackjack_game.sam_hand = [("Q", "hearts"), ("6", "diamonds")]
@@ -42,14 +44,12 @@ def test_blackjack_game_play(mock_hit_me, blackjack_game, capsys):
 @patch.object(Draw_Cards, 'hit_me')
 def test_blackjack_game_play_total_score_comparison(mock_hit_me, blackjack_game, capsys):
     # card values added to the last two assertions when play_game is called
-    mock_hit_me.side_effect = [("3", "hearts"), ("9", "spades")]
+    mock_hit_me.side_effect = [("3", "hearts"), ("9", "spades"), ]
 
-    # Test case where Sam wins with higher total
+    # Test case where Dealer wins with higher total
     blackjack_game.sam_hand = [("6", "hearts"), ("9", "diamonds")]
     # ("3", "hearts") added
     blackjack_game.dealer_hand = [("5", "spades"), ("7", "hearts")]
     # ("9", "spades") added
     blackjack_game.play_game()
     assert "Dealer wins with a total of" in capsys.readouterr().out
-
-

@@ -1,7 +1,7 @@
 import pytest
 from lib.cards import Game 
 
-# integration tests for functionality up until the Game class 
+# integration tests for functionality up until and including the Game class 
 
 @pytest.fixture
 def game():
@@ -68,9 +68,9 @@ def test_card_representations(game):
     
     expected_suits = {"hearts", "diamonds", "clubs", "spades"}
     actual_suits = {card[1] for card in all_cards}
-    assert actual_suits == expected_suits, f"Expected suits {expected_suits}, but got {actual_suits}"
+    assert actual_suits == expected_suits
 
     # Check ranks
     expected_ranks = set("23456789") | {"10", "J", "Q", "K", "A"}
     actual_ranks = {card[0] for card in all_cards}
-    assert actual_ranks == expected_ranks, f"Expected ranks {expected_ranks}, but got {actual_ranks}"
+    assert actual_ranks == expected_ranks
