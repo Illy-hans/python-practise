@@ -11,6 +11,7 @@ def blackjack_game():
 def test_blackjack_game_play(mock_hit_me, blackjack_game, capsys):
     # card values added to the last two assertions when play_game is called
     mock_hit_me.side_effect = [("10", "hearts"), ("8", "spades")]
+    
     # Test case where Sam wins with Blackjack
     blackjack_game.sam_hand = [("A", "hearts"), ("K", "diamonds")]
     blackjack_game.dealer_hand = [("7", "clubs"), ("10", "spades")]
@@ -36,3 +37,19 @@ def test_blackjack_game_play(mock_hit_me, blackjack_game, capsys):
     # ("8", "spades") added to Dealer's hand
     blackjack_game.play_game()
     assert "Dealer busts! Sam wins." in capsys.readouterr().out
+
+
+@patch.object(Draw_Cards, 'hit_me')
+def test_blackjack_game_play_total_score_comparison(mock_hit_me, blackjack_game, capsys):
+    # card values added to the last two assertions when play_game is called
+    mock_hit_me.side_effect = [("3", "hearts"), ("9", "spades")]
+
+    # Test case where Sam wins with higher total
+    blackjack_game.sam_hand = [("6", "hearts"), ("9", "diamonds")]
+    # ("3", "hearts") added
+    blackjack_game.dealer_hand = [("5", "spades"), ("7", "hearts")]
+    # ("9", "spades") added
+    blackjack_game.play_game()
+    assert "Dealer wins with a total of" in capsys.readouterr().out
+
+

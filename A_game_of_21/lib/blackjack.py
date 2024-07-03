@@ -11,10 +11,10 @@ class BlackjackGame:
     
     def play_game(self) -> None:
         sam_total = self.game.calculate_hand_value(self.sam_hand)
-        print("first hand sam:", self.sam_hand, sam_total)
+        # print("first hand sam:", self.sam_hand, sam_total)
 
         dealer_total = self.game.calculate_hand_value(self.dealer_hand)
-        print("first hand dealer:", self.dealer_hand, dealer_total)
+        # print("first hand dealer:", self.dealer_hand, dealer_total)
 
         if self.check_blackjack(self.sam_hand):
             print("Sam wins with Blackjack!")
@@ -27,7 +27,7 @@ class BlackjackGame:
         while sam_total < 17:
             self.sam_hand.append(self.game.cards.hit_me())
             sam_total = self.game.calculate_hand_value(self.sam_hand)
-            print("2nd Sam:", sam_total, self.sam_hand)
+            # print("2nd Sam:", sam_total, self.sam_hand)
             
             if sam_total > 21:
                 print("Sam busts! Dealer wins.")
@@ -36,7 +36,7 @@ class BlackjackGame:
         # Dealer's turn
         while dealer_total <= sam_total and dealer_total <= 21:
             self.dealer_hand.append(self.game.cards.hit_me())
-            print("2nd:", self.dealer_hand, dealer_total)
+            # print("2nd:", self.dealer_hand, dealer_total)
             dealer_total = self.game.calculate_hand_value(self.dealer_hand)
             if dealer_total > 21:
                 print("Dealer busts! Sam wins.")
