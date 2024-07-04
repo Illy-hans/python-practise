@@ -1,5 +1,6 @@
 from lib.cards import Game
 
+# This class simulates the game of blackjack 
 class BlackjackGame:
     def __init__(self) -> None:
         self.game = Game()
@@ -33,7 +34,7 @@ class BlackjackGame:
         while dealer_total <= sam_total and dealer_total <= 21:
             self.dealer_hand.append(self.game.cards.hit_me())
             dealer_total = self.game.calculate_hand_value(self.dealer_hand)
-            
+
             if dealer_total > 21:
                 print("Dealer busts! Sam wins.")
                 return
