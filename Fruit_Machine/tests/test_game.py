@@ -36,7 +36,7 @@ def test_check_win_all_unique(game, mock_results, mocker):
 
     result = game.check_win()
 
-    assert "Congratulations! You have won £54.25" in result
+    assert "Congratulations! You have won £54.25" == result
     assert game.machine_wallet == initial_machine_wallet - 54.25
 
 
@@ -60,7 +60,7 @@ def test_check_win_two_consecutive(game, mock_results, mocker):
 
     result = game.check_win()
 
-    assert f"Congratulations! Two or more consecutive matches gives you £{bet_amount * 5}!" in result
+    assert f"Congratulations! Two or more consecutive matches gives you £{bet_amount * 5}!" == result
     assert game.machine_wallet == initial_machine_wallet - (bet_amount * 5)
     assert game.bet == 0
 
@@ -73,6 +73,6 @@ def test_check_no_win(game, mock_results, mocker):
 
     result = game.check_win()
 
-    assert "Better luck next time!" in result
+    assert "Better luck next time!" == result
     assert game.machine_wallet == initial_machine_wallet
 
